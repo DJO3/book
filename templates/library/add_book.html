@@ -1,0 +1,27 @@
+{% extends 'index/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    <h2>Add a New Book!</h2>
+
+        <form role="form" id="book_form" method="post" action={% url "add_book" %}>
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                <br />
+                {{ field }}
+                <br />
+            {% endfor %}
+            {{ form.instance.author.first_name }}
+            <br />
+            <button class="btn btn-primary" type="submit" name="submit">Add Book</button>
+        </form>
+
+{% endblock %}
